@@ -104,7 +104,7 @@ public class ProductsFragment extends Fragment implements ICategoryListClickList
 //		showProducts();
 	}
 
-	
+
 
 
 }
