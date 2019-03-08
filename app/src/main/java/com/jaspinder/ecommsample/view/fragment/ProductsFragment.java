@@ -29,15 +29,13 @@ public class ProductsFragment extends Fragment implements ICategoryListClickList
 	@BindView(R.id.categoryList)
 	RecyclerView categoryList;
 
-	@BindView(R.id.subCategoryList)
-	RecyclerView subCategoryList;
-
 
 	public static final String TAG = "ProductsFragment";
 
 	private ProductsFragViewModel mProductsFragViewModel;
 
 	CategoryListAdaptor adaptor;
+
 	SubCategoryListAdaptor mSubCategoryListAdaptor;
 
 	public static ProductsFragment newInstance()
@@ -52,8 +50,7 @@ public class ProductsFragment extends Fragment implements ICategoryListClickList
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
 	{
 		View v = getActivity().getLayoutInflater().inflate(R.layout.products_fragment, null);
-		ButterKnife.bind(this,v);
-
+		ButterKnife.bind(this, v);
 
 
 		return v;
@@ -77,16 +74,13 @@ public class ProductsFragment extends Fragment implements ICategoryListClickList
 		categoryList.setLayoutManager(new LinearLayoutManager(getActivity()));
 		categoryList.setHasFixedSize(true);
 
-		subCategoryList.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-		adaptor = new CategoryListAdaptor(getActivity(),this);
-		mSubCategoryListAdaptor = new SubCategoryListAdaptor(getActivity(),null);
+		adaptor = new CategoryListAdaptor(getActivity(), this);
 
 		mProductsFragViewModel.getCategoriesPageList().removeObserver(categoriesPagedListObserver);
-		mProductsFragViewModel.getCategoriesPageList().observe(this,categoriesPagedListObserver);
+		mProductsFragViewModel.getCategoriesPageList().observe(this, categoriesPagedListObserver);
 
 		categoryList.setAdapter(adaptor);
-		subCategoryList.setAdapter(adaptor);
 
 	}
 
@@ -105,22 +99,12 @@ public class ProductsFragment extends Fragment implements ICategoryListClickList
 	@Override
 	public void onClick(Categories categories)
 	{
-		showSubCategoryList();
-		mSubCategoryListAdaptor = new SubCategoryListAdaptor(getActivity(),categories.getSubCategories());
-		subCategoryList.setAdapter(mSubCategoryListAdaptor);
+		//show products for selected category
+
+//		showProducts();
 	}
 
-	private void showSubCategoryList()
-	{
-		subCategoryList.setVisibility(View.VISIBLE);
-		categoryList.setVisibility(View.GONE);
-	}
-
-	private void showCategoryList()
-	{
-		subCategoryList.setVisibility(View.GONE);
-		categoryList.setVisibility(View.VISIBLE);
-	}
+	
 
 
 }
