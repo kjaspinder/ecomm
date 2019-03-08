@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/light_black_transparent"
+    android:layout_height="@dimen/toolbar_with_search_height">
+
+    <Button
+        android:id="@+id/home"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:text="@string/home"
+        android:textAllCaps="false"
+        android:background="@color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/products"/>
+
+    <Button
+        android:id="@+id/products"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:text="@string/products"
+        android:textAllCaps="false"
+        android:background="@color/transparent"
+        app:layout_constraintStart_toEndOf="@id/home"
+        app:layout_constraintEnd_toStartOf="@id/account"
+        />
+
+    <Button
+        android:id="@+id/account"
+        android:layout_width="0dp"
+        android:text="@string/account"
+        android:textAllCaps="false"
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+        app:layout_constraintStart_toEndOf="@id/products"
+        app:layout_constraintEnd_toStartOf="@id/search"
+        />
+
+    <Button
+        android:id="@+id/search"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:text="@string/search"
+        android:textAllCaps="false"
+        android:background="@color/transparent"
+        app:layout_constraintStart_toEndOf="@id/account"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

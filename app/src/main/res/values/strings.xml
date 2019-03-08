@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ECommSample</string>
+    <string name="search">Search</string>
+    <string name="home">Home</string>
+    <string name="products">Products</string>
+    <string name="account">Account</string>
+    <string name="data_fetch_error">There was error loading the page. Please try again!</string>
+    <string name="cancel">Cancel</string>
+    <string name="error">Error</string>
+
+</resources>
