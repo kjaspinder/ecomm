@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.jaspinder.ecommsample.model.ProductListEntity"/>
+    </data>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/productImage"
+            android:layout_width="@dimen/listImageviewWidth"
+            android:layout_height="@dimen/listImageviewWidth"
+            android:layout_marginLeft="@dimen/mediumPadding"
+            android:layout_marginTop="@dimen/mediumPadding"
+            android:layout_marginRight="@dimen/mediumPadding"
+            android:layout_marginBottom="@dimen/mediumPadding"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/productName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/mediumPadding"
+            android:layout_marginTop="@dimen/mediumPadding"
+            android:layout_marginRight="@dimen/mediumPadding"
+            android:layout_marginBottom="@dimen/mediumPadding"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/textSize15"
+            android:textStyle="bold"
+            android:text="@{model.names.title}"
+            app:layout_constraintLeft_toRightOf="@id/productImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RatingBar
+            android:id="@+id/productRating"
+            style="@style/customRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:max="5"
+            android:rating="@{model.customerReviews.averageScore}"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            app:layout_constraintStart_toStartOf="@id/productName"
+            app:layout_constraintTop_toBottomOf="@id/productName" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/mediumPadding"
+            android:layout_marginTop="@dimen/mediumPadding"
+            android:layout_marginRight="@dimen/mediumPadding"
+            android:layout_marginBottom="@dimen/mediumPadding"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{ `MRP  ` + model.prices.regular + `  Discounted Price ` + model.prices.current}"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/textSize15"
+            app:layout_constraintStart_toStartOf="@id/productName"
+            app:layout_constraintTop_toBottomOf="@id/productRating" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

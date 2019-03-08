@@ -13,10 +13,14 @@ import com.jaspinder.ecommsample.helper.IBusinessExecutor;
 import com.jaspinder.ecommsample.helper.IEventBus;
 import com.jaspinder.ecommsample.model.Categories;
 import com.jaspinder.ecommsample.model.NetworkResponseData;
+import com.jaspinder.ecommsample.model.ProductListEntity;
 import com.jaspinder.ecommsample.network.FetchNetworkData;
 import com.jaspinder.ecommsample.network.IFetchNetworkData;
 import com.jaspinder.ecommsample.view.adapter.CategoryDataSource;
 import com.jaspinder.ecommsample.view.adapter.CategoryDataSourceFactory;
+import com.jaspinder.ecommsample.view.adapter.ProductListAdaptor;
+import com.jaspinder.ecommsample.view.adapter.ProductListDataSorce;
+import com.jaspinder.ecommsample.view.adapter.ProductListDataSourcrFactory;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -35,6 +39,11 @@ public class ProductsFragViewModel extends BaseViewModel
 
 
 	private LiveData<PageKeyedDataSource<Integer,Categories>> liveDataSource;
+
+	private LiveData<PagedList<ProductListEntity>> productPagedList ;
+
+
+	private LiveData<PageKeyedDataSource<Integer,ProductListEntity>> productLiveDataSource;
 
 
 
@@ -56,9 +65,28 @@ public class ProductsFragViewModel extends BaseViewModel
 
 	}
 
+
+	public void getProductsForSelectedCategory(String categoryId)
+	{
+		ProductListDataSourcrFactory productListDataSourcrFactory = new ProductListDataSourcrFactory(categoryId);
+		productLiveDataSource = productListDataSourcrFactory.getItemLiveDataSource();
+
+		PagedList.Config config = (new PagedList.Config.Builder())
+				.setEnablePlaceholders(false)
+				.setPageSize(ProductListDataSorce.PAGE_SIZE)
+				.build();
+
+		productPagedList = (new LivePagedListBuilder(productListDataSourcrFactory,config)).build();
+	}
+
 	public LiveData<PagedList<Categories>> getCategoriesPageList()
 	{
 		return categoriesPageList;
+	}
+
+	public LiveData<PagedList<ProductListEntity>> getProductPagedList()
+	{
+		return productPagedList;
 	}
 	public void setCategoriesPageList(LiveData<PagedList<Categories>> categoriesPageList)
 	{

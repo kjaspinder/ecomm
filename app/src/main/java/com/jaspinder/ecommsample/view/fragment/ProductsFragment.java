@@ -16,8 +16,11 @@ import android.view.ViewGroup;
 import com.jaspinder.ecommsample.R;
 import com.jaspinder.ecommsample.events.ICategoryListClickListener;
 import com.jaspinder.ecommsample.model.Categories;
+import com.jaspinder.ecommsample.model.ProductListData;
+import com.jaspinder.ecommsample.model.ProductListEntity;
 import com.jaspinder.ecommsample.view.adapter.CategoryListAdaptor;
 import com.jaspinder.ecommsample.view.adapter.SubCategoryListAdaptor;
+import com.jaspinder.ecommsample.view.commonviews.ProductList;
 import com.jaspinder.ecommsample.viewmodel.ProductsFragViewModel;
 import com.jaspinder.ecommsample.viewmodel.ViewModelProviderFactory;
 
@@ -29,6 +32,13 @@ public class ProductsFragment extends Fragment implements ICategoryListClickList
 	@BindView(R.id.categoryList)
 	RecyclerView categoryList;
 
+	@BindView(R.id.productsList)
+	ProductList mProductList;
+
+	private ProductList productList;
+
+
+
 
 	public static final String TAG = "ProductsFragment";
 
@@ -36,7 +46,7 @@ public class ProductsFragment extends Fragment implements ICategoryListClickList
 
 	CategoryListAdaptor adaptor;
 
-	SubCategoryListAdaptor mSubCategoryListAdaptor;
+
 
 	public static ProductsFragment newInstance()
 	{
@@ -52,7 +62,7 @@ public class ProductsFragment extends Fragment implements ICategoryListClickList
 		View v = getActivity().getLayoutInflater().inflate(R.layout.products_fragment, null);
 		ButterKnife.bind(this, v);
 
-
+		productList = new ProductList(getActivity());
 		return v;
 	}
 
@@ -80,6 +90,9 @@ public class ProductsFragment extends Fragment implements ICategoryListClickList
 		mProductsFragViewModel.getCategoriesPageList().removeObserver(categoriesPagedListObserver);
 		mProductsFragViewModel.getCategoriesPageList().observe(this, categoriesPagedListObserver);
 
+		mProductsFragViewModel.getProductPagedList().removeObserver(productPagedListObserver);
+		mProductsFragViewModel.getProductPagedList().observe(this,productPagedListObserver);
+
 		categoryList.setAdapter(adaptor);
 
 	}
@@ -95,13 +108,22 @@ public class ProductsFragment extends Fragment implements ICategoryListClickList
 		}
 	};
 
+	private final Observer<PagedList<ProductListEntity>> productPagedListObserver = new Observer<PagedList<ProductListEntity>>()
+	{
+		@Override
+		public void onChanged(@Nullable PagedList<ProductListEntity> products)
+		{
+			productList.setProductList(products);
+		}
+	};
+
 
 	@Override
 	public void onClick(Categories categories)
 	{
-		//show products for selected category
+		//fetch products for selected category
+		mProductsFragViewModel.getProductsForSelectedCategory(categories.getId());
 
-//		showProducts();
 	}
 
 

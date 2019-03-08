@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.jaspinder.ecommsample.R;
+import com.jaspinder.ecommsample.databinding.MainActivityBinding;
 import com.jaspinder.ecommsample.view.fragment.AccountFragment;
 import com.jaspinder.ecommsample.view.fragment.HomeFragment;
 import com.jaspinder.ecommsample.view.fragment.ProductsFragment;
@@ -28,6 +29,8 @@ public class BottomTabs extends ConstraintLayout implements View.OnClickListener
 	Button search;
 
 	private static int mFragmentConatinerId;
+
+	private static MainActivityBinding binding;
 
 	private View v;
 
@@ -68,9 +71,14 @@ public class BottomTabs extends ConstraintLayout implements View.OnClickListener
 		account.setOnClickListener(this);
 		search.setOnClickListener(this);
 	}
-	public void setFragmentcontainerId( int id)
+	public void setFragmentcontainerId(int id)
 	{
 		this.mFragmentConatinerId = id;
+	}
+
+	public void setDataBinding(MainActivityBinding dataBinding)
+	{
+		binding = dataBinding;
 	}
 
 
@@ -99,11 +107,9 @@ public class BottomTabs extends ConstraintLayout implements View.OnClickListener
 				break;
 		}
 
-		FragmentTransaction fragmentTransaction = ((AppCompatActivity)getContext()).getSupportFragmentManager().beginTransaction();
-		fragmentTransaction.replace(mFragmentConatinerId,fragment,tag);
+		FragmentTransaction fragmentTransaction = ((AppCompatActivity) getContext()).getSupportFragmentManager().beginTransaction();
+		fragmentTransaction.replace(mFragmentConatinerId, fragment, tag);
 		fragmentTransaction.commit();
-
-
 
 
 	}
